@@ -1,0 +1,25 @@
+{
+    "name" : "QuickMeet",
+    "version" : "0.0.1",
+    "manifest_version" : 3,
+    "description" : "QuickMeet",
+    "permissions" : [
+        "activeTab",
+        "tabs",
+        "storage",
+        "contextMenus",
+        "webNavigation",
+        "webRequest",
+        "notifications"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "QuickMeet",
+        "default_icon": "icon128.png",
+        "default_badge_text": "0",
+        "default_badge_color": "#000000"
+    },
+    "icons" : {
+        "128" : "icon128.png"
+    }
+}
