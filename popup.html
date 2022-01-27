@@ -1,17 +1,17 @@
 <html>
 <head>
 <meta charset="utf-8">
+<!-- Bootstrap-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Popup</title>
+<link rel="stylesheet" href="style.css">
+<title>QuickMeet</title>
 </head>
 <body>
-
-    <div id="joinMeetWithLink">
-        <input type="text" id="meetDetails" placeholder="Nickname or URL">
-        <input type="submit" id="joinMeet" value="Join Meeting">
-    </div>
-
-    <button id="newMeet">New Meeting</button>
+    <form id="joinMeetForm" class="row top-container">
+        <input type="text" id="meetDetails" class="form-control input" placeholder="Nickname or URL">
+        <input type="submit" id = "joinCallButton" class = "btn btn-primary">
+    </form>
     <script src="script.js"></script>
 </body>
 </html>

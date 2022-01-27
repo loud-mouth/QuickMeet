@@ -1,0 +1,19 @@
+#joinCallButton
+{
+    background: url('phone-call.png') no-repeat;
+    height: 32px;
+    width: 32px;
+}
+.top-container {
+    width: 50rem;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    margin-top: 1rem;
+}
+
+#meetDetails {
+    display: inline;
+    width: 50%;
+
+}
