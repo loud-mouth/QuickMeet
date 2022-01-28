@@ -1,14 +1,26 @@
 document.getElementById("joinMeetForm").addEventListener("submit", joinMeeting);
 var samePageMeetingLaunch = ["chrome://newtab", "edge://newtab", "about:blank"];
 
-function createNewMeeting(tabPromise) {
-    launchMeeting("http://meet.google.com/new", tabPromise);
+function NewMeetingURL() {
+    return "http://meet.google.com/new";
 }
-function joinMeetingWithAlias(alias, tabPromise) {
-    launchMeeting("http://meet.google.com/lookup/" + alias, tabPromise);
+function AliasToURL(alias) {
+    return "http://meet.google.com/lookup/" + alias;
 }
-function joinMeetingWithURL(url, tabPromise) {
-    launchMeeting(url, tabPromise);
+
+function getURL(userInput) {
+    if (userInput.length == 0) {
+        return NewMeetingURL();
+    }
+    if (userInput.match(/^[a-z0-9-]+$/i) != null) {
+        return AliasToURL(userInput);
+    }
+    if (userInput.match(/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(:[0-9]+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/) != null) {
+        if (userInput.includes("meet.google.com")) {
+            return userInput;
+        }
+    }
+    throw new Error("Invalid Input");
 }
 
 // this function checks if active tab is in samePageMeetingLaunch, if yes, url is opened in activeTab
@@ -28,17 +40,12 @@ function launchMeeting(url, tabPromise) {
     });
 }
 function joinMeeting() {
-    var tabPromise = chrome.tabs.query({ active: true, lastFocusedWindow: true});
-    var meetDetails = document.getElementById("meetDetails");
-    if (meetDetails.value.length == 0) {
-        createNewMeeting(tabPromise);
+    var tabPromise = chrome.tabs.query({ active: true, lastFocusedWindow: true });
+    var meetDetails = document.getElementById("meetDetails").value;
+    try {
+        launchMeeting(url = getURL(meetDetails), tabPromise);
     }
-    else if (meetDetails.value.match(/^[a-z0-9-]+$/i) != null) {
-        joinMeetingWithAlias(meetDetails.value, tabPromise);
-    }
-    else if (meetDetails.value.match(/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(:[0-9]+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/) != null) {
-        if (meetDetails.value.includes("meet.google.com")) {
-            joinMeetingWithURL(meetDetails.value, tabPromise);
-        }
+    catch (err) {
+        console.log(err);
     }
 }
