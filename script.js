@@ -16,7 +16,7 @@ function joinMeeting() {
         createNewMeeting();
         return;
     }
-    if(meetDetails.value.match(/^[a-z0-9]+$/i) != null) {
+    if(meetDetails.value.match(/^[a-z0-9-]+$/i) != null) {
         joinMeetingWithAlias(meetDetails.value);
         return;
     }
