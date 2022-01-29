@@ -1,5 +1,5 @@
 document.getElementById("joinMeetForm").addEventListener("submit", joinMeetingFromInput);
-document.getElementById("addMeetForm").addEventListener("submit", saveMeeting);
+document.getElementById("addMeetForm").addEventListener("submit", saveInputAsMeet);
 var samePageMeetingLaunch = ["chrome://newtab", "edge://newtab", "about:blank"];
 var urlRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(:[0-9]+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
 var aliasRegex = /^[a-z0-9-]+$/i;
@@ -10,7 +10,7 @@ function NewMeetingURL() {
 function AliasToURL(alias) {
     return "http://meet.google.com/lookup/" + alias;
 }
-function getURL(userInput) {
+function resolveInputToURL(userInput) {
     if (userInput.length == 0) {
         return NewMeetingURL();
     }
@@ -30,7 +30,7 @@ function isMeetURL(str) {
 }
 // this function checks if active tab is in samePageMeetingLaunch, if yes, url is opened in activeTab
 // if not, new tab is created with url
-function launchMeeting(url, tabPromise) {
+function openURLInAFreeTab(url, tabPromise) {
     tabPromise.then(function (tabs) {
         var tabUrl = tabs[0].url;
         if (samePageMeetingLaunch.some((page) => tabUrl.startsWith(page))) {
@@ -44,17 +44,17 @@ function launchMeeting(url, tabPromise) {
         chrome.tabs.create({ url: url });
     });
 }
-function joinMeeting(meetDetails) {
+function loadPreJoinPageFromUserInput(meetDetails) {
     var tabPromise = chrome.tabs.query({ active: true, lastFocusedWindow: true });
     try {
-        launchMeeting(getURL(meetDetails), tabPromise);
+        openURLInAFreeTab(resolveInputToURL(meetDetails), tabPromise);
     }
     catch (err) {
         console.log(err);
     }
 }
 
-function deleteMeet(meetDetails, meetDescription) {
+function deleteSavedMeet(meetDetails, meetDescription) {
     chrome.storage.local.get({ savedMeets: [] }, function (result) {
         var savedMeets = result.savedMeets;
         savedMeets = savedMeets.filter((meet) => meet.meetDetails != meetDetails || meet.meetDescription != meetDescription);
@@ -83,10 +83,10 @@ function storeMeetDetails(meetDetails, meetDescription = "") {
 
 function joinMeetingFromInput() {
     var meetDetails = document.getElementById("meetDetails").value;
-    joinMeeting(meetDetails);
+    loadPreJoinPageFromUserInput(meetDetails);
 }
 
-function loadMeeting() {
+function loadSavedMeets() {
     chrome.storage.local.get({ savedMeets: [] }, function (res) {
         var savedMeets = res.savedMeets;
         var meetList = document.getElementById("meetList");
@@ -103,7 +103,7 @@ function loadMeeting() {
             a1.href = "";
             a1.innerText = "Delete";
             a1.addEventListener("click", function () {
-                deleteMeet(meet.meetDetails, meet.meetDescription);
+                deleteSavedMeet(meet.meetDetails, meet.meetDescription);
             });
             li.appendChild(a1);
 
@@ -111,7 +111,7 @@ function loadMeeting() {
             a2.href = "";
             a2.innerText = "Join";
             a2.addEventListener("click", function () {
-                joinMeeting(meet.meetDetails);
+                loadPreJoinPageFromUserInput(meet.meetDetails);
             });
             li.appendChild(a2);
 
@@ -120,7 +120,7 @@ function loadMeeting() {
     });
 }
 
-function saveMeeting() {
+function saveInputAsMeet() {
     var meetDetails = document.getElementById("saveMeetInp").value;
     var meetDesc = document.getElementById("meetDesc").value;
     if (meetDetails.length == 0) return;
@@ -133,4 +133,4 @@ function saveMeeting() {
         console.log(err);
     }
 }
-window.onload = loadMeeting;
+window.onload = loadSavedMeets;
