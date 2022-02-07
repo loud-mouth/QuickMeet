@@ -1,23 +1,39 @@
 <html>
 <head>
 <meta charset="utf-8">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <!-- Bootstrap-->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 <title>QuickMeet</title>
 </head>
+
 <body>
-    <form id="joinMeetForm" class="row top-container">
-        <input type="text" id="meetDetails" class="form-control input" placeholder="Nickname or URL" autofocus>
-        <input type="submit" id = "joinCallButton" class = "btn btn-primary">
-    </form>
-    <form id="addMeetForm" class="row top-container">
-        <input type="text" id="saveMeetInp" class="form-control input" placeholder="Meet Nickname or URL">
-        <input type="text" id="meetDesc" class="form-control input" placeholder="Meet Description">
-        <input type="submit" id = "saveMeetBtn" class = "btn btn-primary">
-    </form>
-    <div id="meetList"></div>
-    <script src="script.js"></script>
+    <div class="m-auto p-2 m-1">
+        <!-- Search Bar -->
+        <div class="row">
+            <form id="joinMeetForm" class="top-container">
+                <input type="text" id="meetDetails" class="form-control input" placeholder="Nickname or URL" autofocus>
+                <input type="submit" id = "joinCallButton" class = "btn btn-light shadow-none" value="">
+            </form>
+        </div>  
+        
+
+        <!-- Form for adding new bookmarks -->
+        <form id="addMeetForm" class="row top-container left">
+            <input class="col-sm-4" type="text" id="saveMeetInp" class="form-control input" placeholder="Meet Nickname or URL">
+            <input class="col-sm-4" type="text" id="meetDesc" class="form-control input" placeholder="Meet Description">
+            <button class="col-sm-2 btn btn-success"  type="submit" id = "saveMeetBtn"><i class="fas fa-plus-circle"></i> Add</button>
+        </form>
+
+        <!-- List of bookmarks -->
+        <div id="meetList"></div>
+
+
+    </div>
+<script src="script.js"></script>
+
 </body>
 </html>

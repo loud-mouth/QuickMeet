@@ -1,8 +1,9 @@
 #joinCallButton
 {
-    background: url('phone-call.png') no-repeat;
+    background: url('icon32.png') no-repeat;
     height: 32px;
     width: 32px;
+    outline: none;
 }
 .top-container {
     width: 50rem;
@@ -17,3 +18,11 @@
     width: 50%;
 
 }
+
+.left{
+    float:left;
+  }
+  
+/* .clear{
+    clear:both;
+} */
