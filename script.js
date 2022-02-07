@@ -93,6 +93,7 @@ function loadSavedMeets() {
         meetList.innerHTML = "";
         savedMeets.forEach(function (meet) {
             var li = document.createElement("li");
+            li.classList.add("bookmark-list-item");
 
             var a = document.createElement("a");
             a.href = "";
