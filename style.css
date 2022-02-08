@@ -1,22 +1,27 @@
-#joinCallButton
+#joinCallLogo
 {
     background: url('icon32.png') no-repeat;
     height: 32px;
     width: 32px;
     outline: none;
 }
+
+.top-banner {
+  background-color: #FFFFFF;
+}
+
+
 .top-container {
-    width: 50rem;
+    width: 40rem;
     display: flex;
     flex-direction: row;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
     margin-top: 1rem;
 }
 
 #meetDetails {
     display: inline;
     width: 50%;
-
 }
 
 .left{
@@ -35,3 +40,45 @@
 /* .clear{
     clear:both;
 } */
+
+
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+  }
+  
+  #columns {
+    list-style-type: none;
+  }
+  
+  .column {
+    /* width: fit-content; */
+    /* padding-bottom: 5px; */
+    /* padding-top: 5px; */
+    text-align: center;
+    cursor: move;
+  }
+  .column header {
+    height: 20px;
+    width: 150px;
+    color: black;
+    background-color: #ccc;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 10px;
+    border: 2px solid #666666;
+  }
+  
+  .column.dragElem {
+    opacity: 0.4;
+  }
+  .column.over {
+    /* border: 2px dashed #000; */
+    border-top: 2px solid #5BC0DE;
+  }
+  

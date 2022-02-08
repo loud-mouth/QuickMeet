@@ -7,35 +7,34 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
+
 <title>QuickMeet</title>
 </head>
 
 <body>
-    <div class="m-auto p-2 m-1">
+    <div class="m-auto p-auto">
         <!-- Search Bar -->
-        <div class="row">
+        <div class="row top-banner">
             <form id="joinMeetForm" class="top-container">
-                <input type="text" id="meetDetails" class="form-control input" placeholder="Nickname or URL" autofocus>
-                <input type="submit" id = "joinCallButton" class = "btn btn-light shadow-none" value="">
+                <button id = "joinCallLogo" class = "btn btn-light shadow-none" value=""></button>
+                <input type="text" id="meetDetails" class="form-control input" placeholder="Nickname or URL (or just press Enter)" autofocus>
+                <button class="col-sm-2 btn btn-success"  type="submit" id = "joinCallButton"><i class="fas fa-video"></i> Meet</button>
             </form>
         </div>  
-        
 
         <!-- Form for adding new bookmarks -->
         <form id="addMeetForm" class="row top-container left">
             <input class="col-sm-4" type="text" id="saveMeetInp" class="form-control input" placeholder="Meet Nickname or URL">
             <input class="col-sm-4" type="text" id="meetDesc" class="form-control input" placeholder="Meet Description">
-            <button class="col-sm-2 btn btn-success"  type="submit" id = "saveMeetBtn"><i class="fas fa-plus-circle"></i> Add</button>
+            <button class="col-sm-2 btn btn-info" type="submit" id = "saveMeetBtn"><i class="fas fa-plus-circle"></i> Add</button>
         </form>
 
         <!-- List of bookmarks -->
         <div class="container p-2 m-2">
-           <div id="meetList"></div>
+            <div id="meetList"></div>
         </div>
-
-
+        
     </div>
 <script src="script.js"></script>
-
 </body>
 </html>
