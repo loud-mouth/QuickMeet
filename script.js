@@ -39,24 +39,20 @@ function handleDrop(e) {
     //alert(this.outerHTML);
     //dragSrcEl.innerHTML = this.innerHTML;
     //this.innerHTML = e.dataTransfer.getData('text/html');
-    this.parentNode.removeChild(dragSrcEl);
 
     var id_pop = parseInt(dragSrcEl.id);
     var id_push = parseInt(this.id);
     
+    this.parentNode.removeChild(dragSrcEl);
+
 
     chrome.storage.local.get({ savedMeets: [] }, function (result) {
         var savedMeets = result.savedMeets;
-        console.log('before');
-        console.log(id_pop);
-        console.log(id_push);
-        console.log(result.savedMeets);
         savedMeets.splice(id_push, 0, savedMeets.splice(id_pop, 1)[0]);
         
         chrome.storage.local.set({ savedMeets: savedMeets }, function () {
             chrome.storage.local.get('savedMeets', function (res) {
-                console.log('after');
-                console.log(res.savedMeets)
+                loadSavedMeets();
             });
         });
     });
@@ -74,6 +70,7 @@ function handleDrop(e) {
 function handleDragEnd(e) {
   // this/e.target is the source node.
   this.classList.remove('over');    
+  loadSavedMeets();
 }
 
 function addDnDHandlers(elem) {
@@ -248,4 +245,5 @@ function saveInputAsMeet() {
         console.log(err);
     }
 }
+
 window.onload = loadSavedMeets;
